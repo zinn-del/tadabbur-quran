@@ -1,74 +1,117 @@
-import VerseCard from "@/components/VerseCard";
-import ReflectionPrompt from "@/components/ReflectionPrompt";
-import ReflectionEntry from "@/components/ReflectionEntry";
 import BottomNav from "@/components/BottomNav";
 import ornamentalPattern from "@/assets/ornamental-pattern.png";
-
-const recentReflections = [
-  {
-    date: "Mar 30",
-    surah: "Al-Baqarah 2:286",
-    preview: "A reminder that Allah does not burden a soul beyond what it can bear. This gave me peace during a difficult week...",
-  },
-  {
-    date: "Mar 28",
-    surah: "Ar-Rahman 55:13",
-    preview: "Which of the favors of your Lord will you deny? I started listing the blessings I often overlook...",
-  },
-  {
-    date: "Mar 25",
-    surah: "Al-Inshirah 94:6",
-    preview: "With hardship comes ease. I reflected on how past struggles led to growth and clarity...",
-  },
-];
+import { Flame, ChevronRight, BookOpen } from "lucide-react";
 
 const Index = () => {
+  const currentHour = new Date().getHours();
+  const timeGreeting = currentHour < 12 ? "Good Morning" : currentHour < 17 ? "Good Afternoon" : "Good Evening";
+
   return (
     <div className="min-h-screen bg-background pb-28">
-      {/* Header */}
-      <div className="relative overflow-hidden px-6 pt-12 pb-6">
+      {/* Header with pattern */}
+      <div className="relative overflow-hidden px-6 pt-14 pb-8">
         <img
           src={ornamentalPattern}
           alt=""
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-20 pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-15 pointer-events-none"
           width={800}
           height={512}
         />
-        <div className="relative">
-          <p className="text-xs text-gold font-medium tracking-widest uppercase mb-1 animate-fade-in-up">
-            Bismillah
+        <div className="relative animate-fade-in-up">
+          <p className="text-sm text-gold font-medium tracking-wide">
+            {timeGreeting}
           </p>
-          <h1 className="text-2xl font-semibold text-foreground animate-fade-in-up">
-            Quran Reflections
+          <h1 className="text-[1.7rem] font-semibold text-foreground mt-1 leading-tight">
+            Assalamu Alaikum 👋
           </h1>
-          <p className="text-sm text-muted-foreground mt-1 animate-fade-in-up-delay">
-            Your daily space for contemplation
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+            Take a moment to reflect today.
           </p>
+        </div>
+
+        {/* Streak indicator */}
+        <div className="relative mt-5 animate-fade-in-up-delay">
+          <div className="inline-flex items-center gap-2 bg-card rounded-full px-4 py-2 shadow-sm border border-border/50">
+            <Flame className="w-4 h-4 text-orange-400" />
+            <span className="text-xs font-semibold text-foreground">3 day streak</span>
+            <span className="text-xs text-muted-foreground">· Keep going!</span>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Today's Reflection */}
       <div className="px-5 space-y-5">
-        <VerseCard
-          arabicText="إِنَّ مَعَ الْعُسْرِ يُسْرًا"
-          translation="Indeed, with hardship comes ease."
-          surah="Al-Inshirah"
-          ayah="6"
-        />
+        <div className="animate-fade-in-up-delay">
+          <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50 relative overflow-hidden">
+            {/* Subtle decorative corner */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-[4rem]" />
 
-        <ReflectionPrompt />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xs font-medium text-muted-foreground tracking-widest uppercase">
+                  Today's Reflection
+                </span>
+              </div>
 
-        {/* Recent Reflections */}
-        <div className="animate-fade-in-up-delay-2">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-semibold text-foreground">Recent Reflections</h2>
-            <button className="text-xs text-primary font-medium">View All</button>
+              {/* Arabic Ayah */}
+              <p
+                className="font-arabic text-[1.65rem] leading-[2.4] text-foreground text-center mb-5"
+                dir="rtl"
+              >
+                فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا
+              </p>
+
+              {/* Divider */}
+              <div className="flex items-center justify-center gap-3 mb-5">
+                <div className="w-8 h-px bg-gold/40" />
+                <div className="w-1.5 h-1.5 rounded-full bg-gold/50" />
+                <div className="w-8 h-px bg-gold/40" />
+              </div>
+
+              {/* Translation */}
+              <p className="text-sm leading-relaxed text-muted-foreground text-center italic px-2">
+                "So surely with hardship comes ease. Surely with that hardship comes more ease."
+              </p>
+
+              <p className="text-xs text-gold font-medium text-center mt-3">
+                Surah Al-Inshirah · 94:5-6
+              </p>
+
+              {/* CTA Button */}
+              <button className="mt-6 w-full bg-primary text-primary-foreground rounded-xl py-3.5 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-md shadow-primary/20">
+                Start Reflection
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <div className="space-y-3">
-            {recentReflections.map((entry, i) => (
-              <ReflectionEntry key={i} {...entry} />
-            ))}
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-3 gap-3 animate-fade-in-up-delay-2">
+          <div className="bg-card rounded-xl p-4 border border-border/50 text-center">
+            <p className="text-lg font-semibold text-primary">12</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-0.5 uppercase tracking-wide">Reflections</p>
           </div>
+          <div className="bg-card rounded-xl p-4 border border-border/50 text-center">
+            <p className="text-lg font-semibold text-primary">3</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-0.5 uppercase tracking-wide">Day Streak</p>
+          </div>
+          <div className="bg-card rounded-xl p-4 border border-border/50 text-center">
+            <p className="text-lg font-semibold text-primary">5</p>
+            <p className="text-[10px] text-muted-foreground font-medium mt-0.5 uppercase tracking-wide">Bookmarks</p>
+          </div>
+        </div>
+
+        {/* Gentle reminder */}
+        <div className="animate-fade-in-up-delay-2 bg-gold/10 rounded-2xl p-5 border border-gold/20">
+          <p className="text-xs font-medium text-accent-foreground/70 mb-1">💡 Daily Reminder</p>
+          <p className="text-sm text-foreground/80 leading-relaxed">
+            "The best among you are those who learn the Quran and teach it."
+          </p>
+          <p className="text-xs text-gold font-medium mt-2">— Sahih Al-Bukhari</p>
         </div>
       </div>
 
