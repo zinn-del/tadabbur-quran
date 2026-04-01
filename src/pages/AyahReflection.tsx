@@ -85,7 +85,7 @@ const AyahReflection = () => {
       {/* Bottom CTA */}
       <div className="px-5 pb-10 animate-fade-in-up-delay-2">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/reflect")}
           className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
         >
           Reflect on this Ayah
