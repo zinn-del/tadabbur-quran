@@ -83,7 +83,7 @@ const Index = () => {
               </p>
 
               {/* CTA Button */}
-              <button className="mt-6 w-full bg-primary text-primary-foreground rounded-xl py-3.5 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-md shadow-primary/20">
+              <button onClick={() => navigate("/ayah")} className="mt-6 w-full bg-primary text-primary-foreground rounded-xl py-3.5 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-md shadow-primary/20">
                 Start Reflection
                 <ChevronRight className="w-4 h-4" />
               </button>
