@@ -1,8 +1,10 @@
 import BottomNav from "@/components/BottomNav";
 import ornamentalPattern from "@/assets/ornamental-pattern.png";
 import { Flame, ChevronRight, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
   const currentHour = new Date().getHours();
   const timeGreeting = currentHour < 12 ? "Good Morning" : currentHour < 17 ? "Good Afternoon" : "Good Evening";
 
@@ -81,7 +83,7 @@ const Index = () => {
               </p>
 
               {/* CTA Button */}
-              <button className="mt-6 w-full bg-primary text-primary-foreground rounded-xl py-3.5 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-md shadow-primary/20">
+              <button onClick={() => navigate("/ayah")} className="mt-6 w-full bg-primary text-primary-foreground rounded-xl py-3.5 text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-md shadow-primary/20">
                 Start Reflection
                 <ChevronRight className="w-4 h-4" />
               </button>
