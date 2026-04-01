@@ -32,7 +32,7 @@ const Index = () => {
         {/* Streak indicator */}
         <div className="relative mt-5 animate-fade-in-up-delay">
           <div className="inline-flex items-center gap-2 bg-card rounded-full px-4 py-2 shadow-sm border border-border/50">
-            <Flame className="w-4 h-4 text-orange-400" />
+            <Flame className="w-4 h-4 text-streak" />
             <span className="text-xs font-semibold text-foreground">3 day streak</span>
             <span className="text-xs text-muted-foreground">· Keep going!</span>
           </div>
