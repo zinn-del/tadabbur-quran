@@ -1,8 +1,10 @@
 import BottomNav from "@/components/BottomNav";
 import ornamentalPattern from "@/assets/ornamental-pattern.png";
 import { Flame, ChevronRight, BookOpen } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
   const currentHour = new Date().getHours();
   const timeGreeting = currentHour < 12 ? "Good Morning" : currentHour < 17 ? "Good Afternoon" : "Good Evening";
 
