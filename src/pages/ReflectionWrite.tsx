@@ -84,7 +84,7 @@ const ReflectionWrite = () => {
       {/* Bottom CTA */}
       <div className="px-5 pt-6 pb-10 animate-fade-in-up-delay-2">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/action")}
           disabled={text.length === 0}
           className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-sm font-semibold transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/20 disabled:opacity-40 disabled:shadow-none disabled:active:scale-100"
         >

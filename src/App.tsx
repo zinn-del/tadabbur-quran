@@ -21,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/ayah" element={<AyahReflection />} />
           <Route path="/reflect" element={<ReflectionWrite />} />
+          <Route path="/action" element={<ActionStep />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
