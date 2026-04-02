@@ -71,7 +71,7 @@ const ActionStep = () => {
       <div className="px-5 pt-4 pb-10 animate-fade-in-up-delay-2">
         {done ? (
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/complete")}
             className="w-full bg-card border border-border/50 text-foreground rounded-2xl py-4 text-sm font-semibold transition-all active:scale-[0.98] flex items-center justify-center gap-2"
           >
             Back to Home
