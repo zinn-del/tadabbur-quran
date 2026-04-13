@@ -2,9 +2,17 @@ import BottomNav from "@/components/BottomNav";
 import ornamentalPattern from "@/assets/ornamental-pattern.png";
 import { Flame, ChevronRight, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Index = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("onboarding_complete")) {
+      navigate("/onboarding", { replace: true });
+    }
+  }, [navigate]);
+
   const currentHour = new Date().getHours();
   const timeGreeting = currentHour < 12 ? "Good Morning" : currentHour < 17 ? "Good Afternoon" : "Good Evening";
 
