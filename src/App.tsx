@@ -8,6 +8,7 @@ import AyahReflection from "./pages/AyahReflection.tsx";
 import ReflectionWrite from "./pages/ReflectionWrite.tsx";
 import ActionStep from "./pages/ActionStep.tsx";
 import ReflectionComplete from "./pages/ReflectionComplete.tsx";
+import Onboarding from "./pages/Onboarding.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/ayah" element={<AyahReflection />} />
           <Route path="/reflect" element={<ReflectionWrite />} />
           <Route path="/action" element={<ActionStep />} />
