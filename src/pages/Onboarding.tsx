@@ -41,6 +41,7 @@ const Onboarding = () => {
         {step === 1 && <StepEmotional />}
         {step === 2 && <StepPurpose />}
         {step === 3 && <StepHowItWorks />}
+        {step === 4 && <StepDua />}
       </div>
 
       {/* CTA Button */}
@@ -49,7 +50,7 @@ const Onboarding = () => {
           onClick={handleNext}
           className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
         >
-          {step === 0 ? "Get Started" : "Continue"}
+          {step === 0 ? "Get Started" : step === totalSteps - 1 ? "Begin" : "Continue"}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
