@@ -1,21 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, BookOpen, Feather, Heart, Sparkles } from "lucide-react";
+import { ChevronRight, BookOpen, Feather, Heart, Sparkles, Sunrise, Sun, Moon, Clock } from "lucide-react";
 import tadabburLogo from "@/assets/tadabbur-logo.png";
 
 const Onboarding = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
-  const totalSteps = 5;
+  const [reflectionTime, setReflectionTime] = useState<string | null>(null);
+  const [customTime, setCustomTime] = useState("07:00");
+  const totalSteps = 6;
 
   const handleNext = () => {
     if (step < totalSteps - 1) {
       setStep(step + 1);
     } else {
+      const finalTime = reflectionTime === "custom" ? customTime : reflectionTime;
+      if (finalTime) localStorage.setItem("reflection_time", finalTime);
       localStorage.setItem("onboarding_complete", "true");
       navigate("/");
     }
   };
+
+  const isTimeStep = step === 5;
+  const canProceed = !isTimeStep || reflectionTime !== null;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -42,15 +49,24 @@ const Onboarding = () => {
         {step === 2 && <StepPurpose />}
         {step === 3 && <StepHowItWorks />}
         {step === 4 && <StepDua />}
+        {step === 5 && (
+          <StepReflectionTime
+            selected={reflectionTime}
+            onSelect={setReflectionTime}
+            customTime={customTime}
+            onCustomTimeChange={setCustomTime}
+          />
+        )}
       </div>
 
       {/* CTA Button */}
       <div className="px-8 pb-12 animate-fade-in-up-delay-2">
         <button
           onClick={handleNext}
-          className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+          disabled={!canProceed}
+          className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
         >
-          {step === 0 ? "Get Started" : step === totalSteps - 1 ? "Begin" : "Continue"}
+          {step === 0 ? "Get Started" : isTimeStep ? "Start My Journey" : "Continue"}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
@@ -237,4 +253,124 @@ const StepDua = () => (
   </div>
 );
 
+const reflectionTimeOptions = [
+  { id: "fajr", label: "After Fajr", hint: "Begin the day in light", icon: Sunrise },
+  { id: "asr", label: "After Asr", hint: "A pause in the afternoon", icon: Sun },
+  { id: "maghrib", label: "After Maghrib", hint: "Settle into the evening", icon: Moon },
+];
+
+interface StepReflectionTimeProps {
+  selected: string | null;
+  onSelect: (id: string) => void;
+  customTime: string;
+  onCustomTimeChange: (time: string) => void;
+}
+
+const StepReflectionTime = ({
+  selected,
+  onSelect,
+  customTime,
+  onCustomTimeChange,
+}: StepReflectionTimeProps) => (
+  <div className="flex flex-col items-center animate-fade-in-up text-center max-w-sm w-full">
+    <h2 className="text-2xl font-semibold text-foreground leading-snug px-2">
+      When would you like to reconnect?
+    </h2>
+    <p className="text-sm text-muted-foreground mt-3 px-4">
+      Choose a moment in your day to pause with the Quran.
+    </p>
+
+    <div className="flex items-center gap-3 my-7">
+      <div className="w-8 h-px bg-gold/40" />
+      <div className="w-1.5 h-1.5 rounded-full bg-gold/50" />
+      <div className="w-8 h-px bg-gold/40" />
+    </div>
+
+    <div className="space-y-3 w-full text-left">
+      {reflectionTimeOptions.map(({ id, label, hint, icon: Icon }) => {
+        const isActive = selected === id;
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onSelect(id)}
+            className={`w-full flex items-center gap-4 rounded-2xl px-5 py-4 border transition-all active:scale-[0.99] ${
+              isActive
+                ? "bg-primary/10 border-primary/40 shadow-sm shadow-primary/10"
+                : "bg-card border-border/50 hover:border-primary/20"
+            }`}
+          >
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                isActive ? "bg-primary/20" : "bg-primary/10"
+              }`}
+            >
+              <Icon className="w-5 h-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <div className="text-sm font-semibold text-foreground">{label}</div>
+              <div className="text-xs text-muted-foreground mt-0.5">{hint}</div>
+            </div>
+            <div
+              className={`w-5 h-5 rounded-full border-2 transition-colors shrink-0 ${
+                isActive ? "border-primary bg-primary" : "border-border"
+              }`}
+            >
+              {isActive && (
+                <div className="w-full h-full rounded-full flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
+                </div>
+              )}
+            </div>
+          </button>
+        );
+      })}
+
+      <button
+        type="button"
+        onClick={() => onSelect("custom")}
+        className={`w-full flex items-center gap-4 rounded-2xl px-5 py-4 border transition-all active:scale-[0.99] ${
+          selected === "custom"
+            ? "bg-primary/10 border-primary/40 shadow-sm shadow-primary/10"
+            : "bg-card border-border/50 hover:border-primary/20"
+        }`}
+      >
+        <div
+          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+            selected === "custom" ? "bg-primary/20" : "bg-primary/10"
+          }`}
+        >
+          <Clock className="w-5 h-5 text-primary" />
+        </div>
+        <div className="flex-1">
+          <div className="text-sm font-semibold text-foreground">Custom time</div>
+          {selected === "custom" ? (
+            <input
+              type="time"
+              value={customTime}
+              onChange={(e) => onCustomTimeChange(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
+              className="mt-1 bg-transparent text-xs text-muted-foreground focus:outline-none focus:text-foreground"
+            />
+          ) : (
+            <div className="text-xs text-muted-foreground mt-0.5">Pick your own moment</div>
+          )}
+        </div>
+        <div
+          className={`w-5 h-5 rounded-full border-2 transition-colors shrink-0 ${
+            selected === "custom" ? "border-primary bg-primary" : "border-border"
+          }`}
+        >
+          {selected === "custom" && (
+            <div className="w-full h-full rounded-full flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
+            </div>
+          )}
+        </div>
+      </button>
+    </div>
+  </div>
+);
+
 export default Onboarding;
+
