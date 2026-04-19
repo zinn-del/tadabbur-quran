@@ -49,15 +49,24 @@ const Onboarding = () => {
         {step === 2 && <StepPurpose />}
         {step === 3 && <StepHowItWorks />}
         {step === 4 && <StepDua />}
+        {step === 5 && (
+          <StepReflectionTime
+            selected={reflectionTime}
+            onSelect={setReflectionTime}
+            customTime={customTime}
+            onCustomTimeChange={setCustomTime}
+          />
+        )}
       </div>
 
       {/* CTA Button */}
       <div className="px-8 pb-12 animate-fade-in-up-delay-2">
         <button
           onClick={handleNext}
-          className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+          disabled={!canProceed}
+          className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
         >
-          {step === 0 ? "Get Started" : step === totalSteps - 1 ? "Begin" : "Continue"}
+          {step === 0 ? "Get Started" : isTimeStep ? "Start My Journey" : "Continue"}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
