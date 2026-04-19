@@ -6,7 +6,7 @@ import tadabburLogo from "@/assets/tadabbur-logo.png";
 const Onboarding = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   const handleNext = () => {
     if (step < totalSteps - 1) {
