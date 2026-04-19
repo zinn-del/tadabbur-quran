@@ -6,7 +6,7 @@ import tadabburLogo from "@/assets/tadabbur-logo.png";
 const Onboarding = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   const handleNext = () => {
     if (step < totalSteps - 1) {
@@ -41,6 +41,7 @@ const Onboarding = () => {
         {step === 1 && <StepEmotional />}
         {step === 2 && <StepPurpose />}
         {step === 3 && <StepHowItWorks />}
+        {step === 4 && <StepDua />}
       </div>
 
       {/* CTA Button */}
@@ -49,7 +50,7 @@ const Onboarding = () => {
           onClick={handleNext}
           className="w-full bg-primary text-primary-foreground rounded-2xl py-4 text-base font-semibold hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
         >
-          {step === 0 ? "Get Started" : "Continue"}
+          {step === 0 ? "Get Started" : step === totalSteps - 1 ? "Begin" : "Continue"}
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
@@ -196,6 +197,43 @@ const StepHowItWorks = () => (
         ))}
       </div>
     </div>
+  </div>
+);
+
+const StepDua = () => (
+  <div className="flex flex-col items-center animate-fade-in-up text-center max-w-sm w-full px-2">
+    {/* Top ornamental divider */}
+    <div className="flex items-center gap-3 mb-12">
+      <div className="w-10 h-px bg-gold/40" />
+      <div className="w-1.5 h-1.5 rounded-full bg-gold/60" />
+      <div className="w-10 h-px bg-gold/40" />
+    </div>
+
+    {/* Arabic dua — primary focus */}
+    <p
+      dir="rtl"
+      lang="ar"
+      className="font-arabic text-4xl sm:text-5xl text-foreground leading-[1.8] tracking-wide"
+    >
+      اللّٰهُمَّ اجْعَلِ الْقُرْآنَ رَبِيعَ قَلْبِي
+    </p>
+
+    {/* English translation */}
+    <p className="text-base text-muted-foreground mt-12 leading-relaxed italic px-4">
+      "O Allah, make the Quran the spring of my heart."
+    </p>
+
+    {/* Bottom ornamental divider */}
+    <div className="flex items-center gap-3 my-8">
+      <div className="w-8 h-px bg-gold/30" />
+      <div className="w-1 h-1 rounded-full bg-gold/40" />
+      <div className="w-8 h-px bg-gold/30" />
+    </div>
+
+    {/* Optional small text */}
+    <p className="text-sm text-muted-foreground/80 leading-relaxed px-6">
+      Bring life to my heart, like rain brings life to the earth.
+    </p>
   </div>
 );
 
