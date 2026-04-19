@@ -1,21 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, BookOpen, Feather, Heart, Sparkles } from "lucide-react";
+import { ChevronRight, BookOpen, Feather, Heart, Sparkles, Sunrise, Sun, Moon, Clock } from "lucide-react";
 import tadabburLogo from "@/assets/tadabbur-logo.png";
 
 const Onboarding = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
-  const totalSteps = 5;
+  const [reflectionTime, setReflectionTime] = useState<string | null>(null);
+  const [customTime, setCustomTime] = useState("07:00");
+  const totalSteps = 6;
 
   const handleNext = () => {
     if (step < totalSteps - 1) {
       setStep(step + 1);
     } else {
+      const finalTime = reflectionTime === "custom" ? customTime : reflectionTime;
+      if (finalTime) localStorage.setItem("reflection_time", finalTime);
       localStorage.setItem("onboarding_complete", "true");
       navigate("/");
     }
   };
+
+  const isTimeStep = step === 5;
+  const canProceed = !isTimeStep || reflectionTime !== null;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
