@@ -83,7 +83,7 @@ const StepWelcome = () => (
         className="w-16 h-16 object-contain"
       />
     </div>
-    <h1 className="text-4xl font-bold text-foreground tracking-tight text-center">
+    <h1 className="text-xl font-bold text-foreground tracking-tight text-center">
       Tadabbur
     </h1>
     <p className="text-muted-foreground text-base mt-3 leading-relaxed max-w-[260px] text-center">
